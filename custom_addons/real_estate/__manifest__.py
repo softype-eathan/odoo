@@ -8,7 +8,7 @@
         ======================
         This module allows you to manage real estate properties.
     """,
-    'author': 'Your Name',
+    'author': 'Ethan Segovia',
     'depends': ['base'],
     'data': [
         # 'security/ir.model.access.csv',
