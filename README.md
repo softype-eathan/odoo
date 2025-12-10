@@ -27,6 +27,61 @@ a full-featured [Open Source ERP](https://www.odoo.com) when you install several
 For a standard installation please follow the [Setup instructions](https://www.odoo.com/documentation/master/administration/install/install.html)
 from the documentation.
 
+### Docker Setup (Recommended for Development)
+
+This repository includes a Docker Compose configuration for running PostgreSQL.
+
+1. **Start the PostgreSQL container:**
+   ```bash
+   docker-compose up -d postgres
+   ```
+
+2. **Install Python dependencies:**
+   ```bash
+   # Create a virtual environment (Python 3.12 or 3.13 recommended)
+   python -m venv venv
+
+   # Activate the virtual environment
+   # On Windows:
+   venv\Scripts\activate
+   # On Linux/Mac:
+   source venv/bin/activate
+
+   # Install psycopg2-binary first
+   pip install psycopg2-binary
+
+   # Install remaining dependencies
+   pip install -r requirements.txt
+   ```
+
+3. **Configure Odoo to connect to PostgreSQL:**
+
+   Edit `odoo.conf` to match your Docker PostgreSQL credentials:
+   ```ini
+   [options]
+   db_host = localhost
+   db_port = 5432
+   db_user = odoo
+   db_password = odoo
+   addons_path = addons,odoo/addons
+   ```
+
+4. **Start Odoo:**
+   ```bash
+   python odoo-bin -c odoo.conf
+   ```
+
+5. **Access Odoo:**
+
+   Open your browser and navigate to `http://localhost:8069`
+
+6. **Create a database:**
+
+   Use the web interface to create your first database, or use the command line:
+   ```bash
+   python odoo-bin -c odoo.conf -d mydb -i base --stop-after-init
+   ```
+
 To learn the software, we recommend the [Odoo eLearning](https://www.odoo.com/slides),
 or [Scale-up, the business game](https://www.odoo.com/page/scale-up-business-game).
 Developers can start with [the developer tutorials](https://www.odoo.com/documentation/master/developer/howtos.html).
